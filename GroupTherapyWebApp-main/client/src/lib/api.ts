@@ -22,7 +22,7 @@ export async function apiRequest(url: string, options: RequestInit = {}) {
   if (response.status === 401) {
     localStorage.removeItem("admin_session");
     window.location.href = "/admin/login";
-    throw new Error("Authentication required ya basha");
+    throw new Error("Authentication required");
   }
   
   return response;
