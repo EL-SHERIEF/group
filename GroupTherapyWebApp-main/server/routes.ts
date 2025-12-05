@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage, ensureStorageInitialized } from "./storage";
 import { generateSitemap } from "./sitemap";
 import { validateCredentials, createSession, deleteSession, requireAuth, validateSession } from "./auth";
 
@@ -8,8 +8,14 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  // Initialize storage connection
-  await ensureStorageInitialized();
+  // Initialize storage connection (optional for in-memory storage)
+  try {
+    await ensureStorageInitialized();
+    console.log("Storage initialized successfully");
+  } catch (error) {
+    console.warn("Storage initialization warning:", error);
+    // Continue anyway for in-memory storage
+  }
   
   // Authentication routes
   app.post("/api/auth/login", async (req, res) => {
