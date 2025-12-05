@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { createApp, initializeApp, log } from "./app";
 import { serveStatic } from "./static";
 
