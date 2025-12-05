@@ -172,7 +172,11 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createArtist(artist: InsertArtist): Promise<Artist> {
-    const result = await this.db.insert(schema.artists).values(artist).returning();
+    const artistData = {
+      ...artist,
+      socialLinks: artist.socialLinks ?? null,
+    };
+    const result = await this.db.insert(schema.artists).values(artistData).returning();
     return result[0];
   }
 

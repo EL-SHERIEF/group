@@ -162,7 +162,15 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = randomUUID();
-    const user: User = { ...insertUser, id, createdAt: new Date() };
+    const user: User = {
+      id,
+      username: insertUser.username,
+      password: insertUser.password,
+      email: insertUser.email,
+      role: insertUser.role ?? "contributor",
+      avatarUrl: nullify(insertUser.avatarUrl),
+      createdAt: new Date(),
+    };
     this.users.set(id, user);
     return user;
   }
@@ -176,10 +184,12 @@ export class MemStorage implements IStorage {
   async createAdminUser(insertUser: InsertAdminUser): Promise<AdminUser> {
     const id = this.adminUsers.size + 1;
     const adminUser: AdminUser = {
-      ...insertUser,
       id,
-      isActive: insertUser.isActive ?? true,
+      username: insertUser.username,
+      passwordHash: insertUser.passwordHash,
+      email: nullify(insertUser.email),
       role: insertUser.role ?? "admin",
+      isActive: insertUser.isActive ?? true,
       lastLoginAt: null,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -199,8 +209,10 @@ export class MemStorage implements IStorage {
 
   async recordLoginAttempt(insertAttempt: InsertLoginAttempt): Promise<LoginAttempt> {
     const attempt: LoginAttempt = {
-      ...insertAttempt,
       id: this.loginAttempts.length + 1,
+      username: insertAttempt.username,
+      ipAddress: nullify(insertAttempt.ipAddress),
+      successful: insertAttempt.successful,
       attemptedAt: new Date(),
     };
     this.loginAttempts.push(attempt);
@@ -227,7 +239,26 @@ export class MemStorage implements IStorage {
 
   async createRelease(release: InsertRelease): Promise<Release> {
     const id = randomUUID();
-    const newRelease: Release = { ...release, id, createdAt: new Date() };
+    const newRelease: Release = {
+      id,
+      title: release.title,
+      slug: release.slug,
+      artistId: nullify(release.artistId),
+      artistName: release.artistName,
+      coverUrl: nullify(release.coverUrl),
+      releaseDate: nullify(release.releaseDate),
+      genres: nullify(release.genres),
+      spotifyAlbumId: nullify(release.spotifyAlbumId),
+      spotifyUrl: nullify(release.spotifyUrl),
+      appleMusicUrl: nullify(release.appleMusicUrl),
+      soundcloudUrl: nullify(release.soundcloudUrl),
+      previewUrl: nullify(release.previewUrl),
+      type: nullify(release.type),
+      featured: nullify(release.featured),
+      featuredUntil: nullify(release.featuredUntil),
+      published: nullify(release.published),
+      createdAt: new Date(),
+    };
     this.releases.set(id, newRelease);
     return newRelease;
   }
@@ -255,7 +286,29 @@ export class MemStorage implements IStorage {
 
   async createEvent(event: InsertEvent): Promise<Event> {
     const id = randomUUID();
-    const newEvent: Event = { ...event, id, createdAt: new Date() };
+    const newEvent: Event = {
+      id,
+      title: event.title,
+      slug: event.slug,
+      description: nullify(event.description),
+      venue: event.venue,
+      address: nullify(event.address),
+      city: event.city,
+      country: event.country,
+      lat: nullify(event.lat),
+      lng: nullify(event.lng),
+      date: event.date,
+      endDate: nullify(event.endDate),
+      imageUrl: nullify(event.imageUrl),
+      ticketUrl: nullify(event.ticketUrl),
+      ticketPrice: nullify(event.ticketPrice),
+      capacity: nullify(event.capacity),
+      rsvpCount: nullify(event.rsvpCount),
+      artistIds: nullify(event.artistIds),
+      featured: nullify(event.featured),
+      published: nullify(event.published),
+      createdAt: new Date(),
+    };
     this.events.set(id, newEvent);
     return newEvent;
   }
@@ -283,7 +336,25 @@ export class MemStorage implements IStorage {
 
   async createPost(post: InsertPost): Promise<Post> {
     const id = randomUUID();
-    const newPost: Post = { ...post, id, createdAt: new Date() };
+    const newPost: Post = {
+      id,
+      title: post.title,
+      slug: post.slug,
+      excerpt: nullify(post.excerpt),
+      content: nullify(post.content),
+      coverUrl: nullify(post.coverUrl),
+      category: nullify(post.category),
+      tags: nullify(post.tags),
+      authorId: nullify(post.authorId),
+      authorName: nullify(post.authorName),
+      metaTitle: nullify(post.metaTitle),
+      metaDescription: nullify(post.metaDescription),
+      ogImageUrl: nullify(post.ogImageUrl),
+      publishedAt: nullify(post.publishedAt),
+      published: nullify(post.published),
+      featured: nullify(post.featured),
+      createdAt: new Date(),
+    };
     this.posts.set(id, newPost);
     return newPost;
   }
