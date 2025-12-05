@@ -1,4 +1,3 @@
-
 # Authentication Setup Guide
 
 ## Quick Start
@@ -28,19 +27,25 @@ npm run dev
 
 5. **Login at**: `/admin/login` with your credentials
 
-## Using Replit Secrets
+## Environment Variables for Production (Vercel)
 
-For production deployment on Replit, use the Secrets tool instead of `.env`:
+For production deployment on Vercel, configure environment variables in the Vercel Dashboard:
 
-1. Open the Secrets tab in Replit
-2. Add the following secrets:
-   - `ADMIN_USERNAME`
-   - `ADMIN_PASSWORD` (use a strong password!)
-   - `ADMIN_EMAIL`
-   - `SESSION_SECRET` (generate a random string)
-   - `BCRYPT_SALT_ROUNDS` (default: 10)
+1. Go to your Vercel project
+2. Navigate to **Settings > Environment Variables**
+3. Add the following variables:
 
-3. Run the seed script to create the admin user
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_URL` | Yes | Supabase PostgreSQL connection string |
+| `SESSION_SECRET` | Yes | Random string (min 32 chars) |
+| `ADMIN_USERNAME` | Yes | Admin username for seeding |
+| `ADMIN_PASSWORD` | Yes | Strong admin password |
+| `ADMIN_EMAIL` | No | Admin email address |
+| `BCRYPT_SALT_ROUNDS` | No | Default: 10 |
+
+4. Deploy the application
+5. Run the seed script to create the admin user
 
 ## Security Features
 
@@ -50,21 +55,22 @@ For production deployment on Replit, use the Secrets tool instead of `.env`:
 - Session-based authentication with expiry
 - Environment variable configuration
 - IP tracking for login attempts
-- HTTPS in production (automatic on Replit)
+- HTTPS in production (automatic on Vercel)
 
 ## Changing Admin Password
 
 To change the admin password:
 
-1. Update `ADMIN_PASSWORD` in your `.env` or Replit Secrets
+1. Update `ADMIN_PASSWORD` in your `.env` or Vercel Environment Variables
 2. Delete the existing admin user from the database
 3. Run `npm run seed-admin` again
 
-## Migration to PostgreSQL
+## Database Setup with Supabase
 
-Currently using in-memory storage. To migrate to PostgreSQL:
+To set up the database:
 
-1. Provision PostgreSQL database in Replit
-2. Run database migrations: `npx drizzle-kit push`
-3. Update `server/storage.ts` to use Drizzle ORM instead of in-memory maps
-4. Run seed script to create admin user in database
+1. Create a Supabase project at [supabase.com](https://supabase.com)
+2. Go to Settings > Database and copy the connection string
+3. Add the connection string as `DATABASE_URL` in Vercel Environment Variables
+4. Run database migrations: `npx drizzle-kit push`
+5. Run seed script to create admin user in database

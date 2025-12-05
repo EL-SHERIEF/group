@@ -1,4 +1,3 @@
-
 # Security Guidelines
 
 ## Authentication
@@ -31,10 +30,10 @@ This application uses a database-backed authentication system with the following
    npm run seed-admin
    ```
 
-3. **For production deployment**:
-   - Set strong `ADMIN_PASSWORD` and `SESSION_SECRET`
-   - Configure PostgreSQL database connection
-   - Enable HTTPS (handled automatically by Replit deployment)
+3. **For production deployment on Vercel**:
+   - Set strong `ADMIN_PASSWORD` and `SESSION_SECRET` in Vercel Environment Variables
+   - Configure Supabase PostgreSQL database connection
+   - HTTPS is enabled automatically by Vercel
    - Consider implementing 2FA for additional security
 
 ### Password Requirements
@@ -46,12 +45,23 @@ When creating admin users, ensure passwords:
 
 ### Production Deployment
 
-When deploying on Replit:
+When deploying on Vercel:
 1. HTTPS is automatically enabled for all deployments
-2. Set all environment variables in the Secrets tool
+2. Set all environment variables in the Vercel Dashboard (Settings > Environment Variables)
 3. Never commit `.env` file to version control
 4. Regularly rotate admin passwords and session secrets
 5. Monitor login attempts for suspicious activity
+
+### Environment Variables
+
+Configure these in Vercel Dashboard:
+
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | Supabase PostgreSQL connection string |
+| `SESSION_SECRET` | Secret key for session encryption (min 32 chars) |
+| `ADMIN_PASSWORD` | Initial admin password for seeding |
+| `NODE_ENV` | Set to `production` |
 
 ### Future Enhancements
 

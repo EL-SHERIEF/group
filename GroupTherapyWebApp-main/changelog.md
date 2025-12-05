@@ -4,10 +4,6 @@
 
 GroupTherapy is a comprehensive record label website featuring a public-facing site for music discovery and fan engagement, combined with an admin dashboard for content management. The platform showcases releases, artists, events, and includes an integrated 24/7 streaming radio player. Built with React, Express, and PostgreSQL, the site emphasizes a media-rich, dark-mode-optimized experience inspired by major record labels like Interscope Records and modern platforms like Apple Music and Spotify.
 
-## User Preferences
-
-Preferred communication style: Simple, everyday language.
-
 ## System Architecture
 
 ### Frontend Architecture
@@ -49,7 +45,7 @@ Preferred communication style: Simple, everyday language.
 
 ### Data Storage
 
-**Database**: PostgreSQL configured via Drizzle ORM
+**Database**: PostgreSQL via Supabase, configured with Drizzle ORM
 
 **Schema Design** (`shared/schema.ts`):
 - **users**: Admin authentication with role-based access (admin, editor, contributor)
@@ -66,7 +62,7 @@ Preferred communication style: Simple, everyday language.
 
 **ORM**: Drizzle ORM with Drizzle-Zod for runtime validation
 
-**Migrations**: Managed via `drizzle-kit` with migrations stored in `/migrations`
+**Migrations**: Managed via `drizzle-kit push`
 
 ### Authentication & Authorization
 
@@ -100,9 +96,10 @@ Preferred communication style: Simple, everyday language.
 3. Select dependencies bundled to reduce file I/O on startup
 
 **Environment Variables**: 
-- `DATABASE_URL`: PostgreSQL connection string (required for production)
+- `DATABASE_URL`: Supabase PostgreSQL connection string (required for production)
 - `NODE_ENV`: development/production mode switching
 - `SESSION_SECRET`: Secret key for session management
+- `CORS_ORIGIN`: Production domain (optional)
 - See `.env.example` for complete list
 
 **Development**: `npm run dev` starts Express with Vite middleware for HMR
@@ -165,7 +162,7 @@ The project is configured for Vercel deployment with serverless functions:
 
 ### Database
 
-**PostgreSQL**: Primary data store accessed via Drizzle ORM with connection pooling
+**PostgreSQL**: Primary data store via Supabase, accessed with Drizzle ORM and connection pooling
 
 ### UI Libraries
 
@@ -186,9 +183,13 @@ The project is configured for Vercel deployment with serverless functions:
 ## Recent Changes
 
 - **2025-12-04**: Migrated project for Vercel deployment
-  - Removed Replit-specific Vite plugins
   - Created serverless API handler (`api/index.ts`)
   - Refactored server to support both local dev and serverless modes
   - Added `vercel.json` with proper rewrites and headers
   - Created `.env.example` and `DEPLOYMENT.md` documentation
   - Updated package.json with @vercel/node types
+
+- **2025-12-05**: Updated documentation for Vercel/Supabase deployment
+  - Removed platform-specific deployment references
+  - Added Supabase database setup instructions
+  - Updated environment variable documentation
