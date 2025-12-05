@@ -147,7 +147,7 @@ export default function AdminRadioShows() {
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl overflow-y-scroll h-[90vh]">
             <DialogHeader>
               <DialogTitle>{editingShow ? "Edit Show" : "Add New Show"}</DialogTitle>
             </DialogHeader>
@@ -177,7 +177,8 @@ export default function AdminRadioShows() {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
-              <div>
+          <div>
+                <div>
                 <Label>Host Image</Label>
                 <ImageUpload
                   onUploadComplete={(url) => setFormData({ ...formData, hostImageUrl: url })}
@@ -195,8 +196,9 @@ export default function AdminRadioShows() {
                   aspectRatio="square"
                 />
               </div>
+          </div>
               <div>
-                <Label>Recorded Episode (Optional)</Label>
+                <Label>Recorded Episode</Label>
                 <AudioUpload
                   onUploadComplete={(url) => setFormData({ ...formData, recordedUrl: url })}
                   bucket="media"
