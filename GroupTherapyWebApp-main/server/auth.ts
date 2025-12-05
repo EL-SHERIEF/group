@@ -104,7 +104,7 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
   const sessionId = req.headers.authorization?.replace("Bearer ", "");
   
   if (!sessionId) {
-    return res.status(401).json({ message: "Authentication required" });
+    return res.status(401).json({ message: "Authentication required from auth.ts" });
   }
   
   const username = await validateSession(sessionId);
