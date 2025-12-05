@@ -1,0 +1,124 @@
+09:01:08.631 Running build in Washington, D.C., USA (East) – iad1
+09:01:08.631 Build machine configuration: 2 cores, 8 GB
+09:01:08.756 Cloning github.com/egypcoder/group (Branch: main, Commit: d16c465)
+09:01:08.989 Cloning completed: 233.000ms
+09:01:09.627 Restored build cache from previous deployment (DKvjnscogcn69tnpesAHQc9ZarkB)
+09:01:10.201 Warning: Detected "engines": { "node": ">=18.0.0" } in your `package.json` that will automatically upgrade when a new major Node.js Version is released. Learn More: http://vercel.link/node-version
+09:01:10.201 Running "vercel build"
+09:01:10.597 Vercel CLI 48.12.1
+09:01:11.325 Warning: Detected "engines": { "node": ">=18.0.0" } in your `package.json` that will automatically upgrade when a new major Node.js Version is released. Learn More: http://vercel.link/node-version
+09:01:11.335 Installing dependencies...
+09:01:12.702 
+09:01:12.702 up to date in 1s
+09:01:12.702 
+09:01:12.702 71 packages are looking for funding
+09:01:12.703   run `npm fund` for details
+09:01:12.846 
+09:01:12.847 > grouptherapy@1.0.0 build
+09:01:12.847 > tsx script/build.ts
+09:01:12.847 
+09:01:14.645 building client...
+09:01:14.795 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+09:01:15.473 transforming...
+09:01:16.592 
+09:01:16.593 A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+09:01:21.562 [32m✓[39m 2114 modules transformed.
+09:01:22.065 rendering chunks...
+09:01:22.079 computing gzip size...
+09:01:22.104 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  3.75 kB[22m[1m[22m[2m │ gzip:   1.33 kB[22m
+09:01:22.105 [2m../dist/public/[22m[2massets/[22m[35mindex-C7L1acyd.css  [39m[1m[2m 87.57 kB[22m[1m[22m[2m │ gzip:  13.96 kB[22m
+09:01:22.105 [2m../dist/public/[22m[2massets/[22m[36mindex-DWTdM2pk.js   [39m[1m[33m780.53 kB[39m[22m[2m │ gzip: 228.77 kB[22m
+09:01:22.105 [32m✓ built in 6.68s[39m
+09:01:22.105 [33m
+09:01:22.106 (!) Some chunks are larger than 500 kB after minification. Consider:
+09:01:22.106 - Using dynamic import() to code-split the application
+09:01:22.106 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+09:01:22.106 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+09:01:22.106 building server...
+09:01:22.346 
+09:01:22.346   dist/index.cjs  1.0mb ⚠️
+09:01:22.346 
+09:01:22.346 ⚡ Done in 224ms
+09:01:22.452 Warning: Detected "engines": { "node": ">=18.0.0" } in your `package.json` that will automatically upgrade when a new major Node.js Version is released. Learn More: http://vercel.link/node-version
+09:01:22.470 Running "npm run vercel-build"
+09:01:22.586 
+09:01:22.586 > grouptherapy@1.0.0 vercel-build
+09:01:22.586 > npm run build
+09:01:22.587 
+09:01:22.706 
+09:01:22.709 > grouptherapy@1.0.0 build
+09:01:22.709 > tsx script/build.ts
+09:01:22.709 
+09:01:23.860 building client...
+09:01:23.919 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+09:01:24.461 transforming...
+09:01:25.370 
+09:01:25.371 A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+09:01:30.060 [32m✓[39m 2114 modules transformed.
+09:01:30.524 rendering chunks...
+09:01:30.537 computing gzip size...
+09:01:30.560 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  3.75 kB[22m[1m[22m[2m │ gzip:   1.33 kB[22m
+09:01:30.561 [2m../dist/public/[22m[2massets/[22m[35mindex-C7L1acyd.css  [39m[1m[2m 87.57 kB[22m[1m[22m[2m │ gzip:  13.96 kB[22m
+09:01:30.561 [2m../dist/public/[22m[2massets/[22m[36mindex-DWTdM2pk.js   [39m[1m[33m780.53 kB[39m[22m[2m │ gzip: 228.77 kB[22m
+09:01:30.562 [33m
+09:01:30.562 (!) Some chunks are larger than 500 kB after minification. Consider:
+09:01:30.562 - Using dynamic import() to code-split the application
+09:01:30.562 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+09:01:30.562 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+09:01:30.562 [32m✓ built in 6.45s[39m
+09:01:30.563 building server...
+09:01:30.748 
+09:01:30.748   dist/index.cjs  1.0mb ⚠️
+09:01:30.748 
+09:01:30.749 ⚡ Done in 174ms
+09:01:31.076 Using TypeScript 5.6.3 (local user-provided)
+09:01:37.778 server/storage.ts(165,11): error TS2322: Type '{ id: `${string}-${string}-${string}-${string}-${string}`; createdAt: Date; username: string; password: string; email: string; role?: string | undefined; avatarUrl?: string | null | undefined; }' is not assignable to type '{ id: string; username: string; password: string; createdAt: Date | null; email: string; role: string; avatarUrl: string | null; }'.
+09:01:37.778   Types of property 'role' are incompatible.
+09:01:37.778     Type 'string | undefined' is not assignable to type 'string'.
+09:01:37.779       Type 'undefined' is not assignable to type 'string'.
+09:01:37.779 server/storage.ts(178,11): error TS2322: Type '{ id: number; isActive: boolean; role: string; lastLoginAt: null; createdAt: Date; updatedAt: Date; username: string; passwordHash: string; email?: string | null | undefined; }' is not assignable to type '{ id: number; username: string; createdAt: Date; email: string | null; role: string; passwordHash: string; isActive: boolean; lastLoginAt: Date | null; updatedAt: Date; }'.
+09:01:37.779   Types of property 'email' are incompatible.
+09:01:37.779     Type 'string | null | undefined' is not assignable to type 'string | null'.
+09:01:37.779       Type 'undefined' is not assignable to type 'string | null'.
+09:01:37.780 server/storage.ts(201,11): error TS2322: Type '{ id: number; attemptedAt: Date; username: string; successful: boolean; ipAddress?: string | null | undefined; }' is not assignable to type '{ id: number; username: string; ipAddress: string | null; successful: boolean; attemptedAt: Date; }'.
+09:01:37.780   Types of property 'ipAddress' are incompatible.
+09:01:37.780     Type 'string | null | undefined' is not assignable to type 'string | null'.
+09:01:37.780       Type 'undefined' is not assignable to type 'string | null'.
+09:01:37.780 server/storage.ts(230,11): error TS2322: Type '{ id: `${string}-${string}-${string}-${string}-${string}`; createdAt: Date; title: string; slug: string; artistName: string; featured?: boolean | null | undefined; artistId?: string | null | undefined; ... 10 more ...; published?: boolean | ... 1 more ... | undefined; }' is not assignable to type '{ id: string; title: string; slug: string; featured: boolean | null; createdAt: Date | null; artistId: string | null; artistName: string; coverUrl: string | null; releaseDate: Date | null; ... 8 more ...; published: boolean | null; }'.
+09:01:37.780   Types of property 'featured' are incompatible.
+09:01:37.783     Type 'boolean | null | undefined' is not assignable to type 'boolean | null'.
+09:01:37.783       Type 'undefined' is not assignable to type 'boolean | null'.
+09:01:37.783 server/storage.ts(258,11): error TS2322: Type '{ id: `${string}-${string}-${string}-${string}-${string}`; createdAt: Date; date: Date; title: string; slug: string; venue: string; city: string; country: string; imageUrl?: string | null | undefined; ... 11 more ...; artistIds?: string[] | ... 1 more ... | undefined; }' is not assignable to type '{ id: string; date: Date; title: string; slug: string; imageUrl: string | null; featured: boolean | null; createdAt: Date | null; published: boolean | null; description: string | null; ... 11 more ...; artistIds: string[] | null; }'.
+09:01:37.783   Types of property 'imageUrl' are incompatible.
+09:01:37.787     Type 'string | null | undefined' is not assignable to type 'string | null'.
+09:01:37.788       Type 'undefined' is not assignable to type 'string | null'.
+09:01:37.788 server/storage.ts(286,11): error TS2322: Type '{ id: `${string}-${string}-${string}-${string}-${string}`; createdAt: Date; title: string; slug: string; featured?: boolean | null | undefined; coverUrl?: string | null | undefined; published?: boolean | null | undefined; ... 9 more ...; publishedAt?: Date | ... 1 more ... | undefined; }' is not assignable to type '{ id: string; title: string; slug: string; featured: boolean | null; createdAt: Date | null; coverUrl: string | null; published: boolean | null; excerpt: string | null; content: string | null; ... 7 more ...; publishedAt: Date | null; }'.
+09:01:37.788   Types of property 'featured' are incompatible.
+09:01:37.789     Type 'boolean | null | undefined' is not assignable to type 'boolean | null'.
+09:01:37.790       Type 'undefined' is not assignable to type 'boolean | null'.
+09:01:37.790 server/storage.ts(359,7): error TS2322: Type '{ instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; } | null' is not assignable to type '{ instagram?: string | undefined; twitter?: string | undefined; spotify?: string | undefined; soundcloud?: string | undefined; youtube?: string | undefined; } | null'.
+09:01:37.790   Type '{ instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; }' is not assignable to type '{ instagram?: string | undefined; twitter?: string | undefined; spotify?: string | undefined; soundcloud?: string | undefined; youtube?: string | undefined; }'.
+09:01:37.790     Types of property 'instagram' are incompatible.
+09:01:37.791       Type 'unknown' is not assignable to type 'string | undefined'.
+09:01:37.791 
+09:01:38.394 server/db-storage.ts(175,64): error TS2769: No overload matches this call.
+09:01:38.394   Overload 1 of 2, '(value: { name: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<string, any>; id?: string | SQL<unknown> | Placeholder<string, any> | undefined; ... 5 more ...; createdAt?: Date | ... 3 more ... | undefined; }): PgInsertBase<...>', gave the following error.
+09:01:38.394     Argument of type '{ name: string; slug: string; bio?: string | null | undefined; imageUrl?: string | null | undefined; spotifyArtistId?: string | null | undefined; socialLinks?: { instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; } | null | undefined; featured?: boolean | ... 1 more ....' is not assignable to parameter of type '{ name: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<string, any>; id?: string | SQL<unknown> | Placeholder<string, any> | undefined; ... 5 more ...; createdAt?: Date | ... 3 more ... | undefined; }'.
+09:01:38.395       Types of property 'socialLinks' are incompatible.
+09:01:38.395         Type '{ instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; } | null | undefined' is not assignable to type 'SQL<unknown> | { instagram?: string | undefined; twitter?: string | undefined; spotify?: string | undefined; soundcloud?: string | undefined; youtube?: string | undefined; } | Placeholder<string, any> | null | undefined'.
+09:01:38.395           Type '{ instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; }' is not assignable to type 'SQL<unknown> | { instagram?: string | undefined; twitter?: string | undefined; spotify?: string | undefined; soundcloud?: string | undefined; youtube?: string | undefined; } | Placeholder<string, any> | null | undefined'.
+09:01:38.395             Type '{ instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; }' is not assignable to type '{ instagram?: string | undefined; twitter?: string | undefined; spotify?: string | undefined; soundcloud?: string | undefined; youtube?: string | undefined; }'.
+09:01:38.395               Types of property 'instagram' are incompatible.
+09:01:38.395                 Type 'unknown' is not assignable to type 'string | undefined'.
+09:01:38.395   Overload 2 of 2, '(values: { name: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<string, any>; id?: string | SQL<unknown> | Placeholder<string, any> | undefined; ... 5 more ...; createdAt?: Date | ... 3 more ... | undefined; }[]): PgInsertBase<...>', gave the following error.
+09:01:38.395     Argument of type '{ name: string; slug: string; bio?: string | null | undefined; imageUrl?: string | null | undefined; spotifyArtistId?: string | null | undefined; socialLinks?: { instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; } | null | undefined; featured?: boolean | ... 1 more ....' is not assignable to parameter of type '{ name: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<string, any>; id?: string | SQL<unknown> | Placeholder<string, any> | undefined; ... 5 more ...; createdAt?: Date | ... 3 more ... | undefined; }[]'.
+09:01:38.395       Type '{ name: string; slug: string; bio?: string | null | undefined; imageUrl?: string | null | undefined; spotifyArtistId?: string | null | undefined; socialLinks?: { instagram?: unknown; twitter?: unknown; spotify?: unknown; soundcloud?: unknown; youtube?: unknown; } | null | undefined; featured?: boolean | ... 1 more ....' is missing the following properties from type '{ name: string | SQL<unknown> | Placeholder<string, any>; slug: string | SQL<unknown> | Placeholder<string, any>; id?: string | SQL<unknown> | Placeholder<string, any> | undefined; ... 5 more ...; createdAt?: Date | ... 3 more ... | undefined; }[]': length, pop, push, concat, and 35 more.
+09:01:38.395 
+09:01:40.134 Build Completed in /vercel/output [29s]
+09:01:40.334 Deploying outputs...
+09:01:41.640 Warning: Provided `memory` setting in `vercel.json` is ignored on Active CPU billing. You can safely remove this setting from your configuration. Learn more: https://vercel.com/docs/fluid-compute/pricing
+09:01:45.775 Deployment completed
+09:01:46.390 Creating build cache...
+09:02:08.908 Created build cache: 22.513s
+09:02:08.909 Uploading build cache [104.23 MB]
+09:02:10.588 Build cache uploaded: 1.684s
