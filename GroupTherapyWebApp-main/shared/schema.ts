@@ -50,7 +50,7 @@ export const artists = pgTable("artists", {
     spotify?: string;
     soundcloud?: string;
     youtube?: string;
-  }>(),
+  } | null>(),
   featured: boolean("featured").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
