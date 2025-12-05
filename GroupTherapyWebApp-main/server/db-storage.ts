@@ -1,9 +1,9 @@
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { eq } from "drizzle-orm";
+import { eq, lt, desc, sql, count } from "drizzle-orm";
 import type { IStorage } from "./storage";
-import type { User, InsertUser, AdminUser, InsertAdminUser, InsertLoginAttempt, LoginAttempt, Release, InsertRelease, Event, InsertEvent, Post, InsertPost, Contact, InsertContact, Artist, InsertArtist, RadioShow, InsertRadioShow, Playlist, InsertPlaylist, Video, InsertVideo } from "@shared/schema";
+import type { User, InsertUser, AdminUser, InsertAdminUser, InsertLoginAttempt, LoginAttempt, Release, InsertRelease, Event, InsertEvent, Post, InsertPost, Contact, InsertContact, Artist, InsertArtist, RadioShow, InsertRadioShow, Playlist, InsertPlaylist, Video, InsertVideo, Session, InsertSession, PageView, InsertPageView, PlayCount, InsertPlayCount, RadioListener, InsertRadioListener, RadioSettings } from "@shared/schema";
 import * as schema from "@shared/schema";
 
 export class DatabaseStorage implements IStorage {
@@ -263,5 +263,124 @@ export class DatabaseStorage implements IStorage {
 
   async deleteVideo(id: string): Promise<void> {
     await this.db.delete(schema.videos).where(eq(schema.videos.id, id));
+  }
+
+  // Sessions
+  async createSession(session: { id: string; username: string; expiresAt: Date }): Promise<Session> {
+    const result = await this.db.insert(schema.sessions).values({
+      id: session.id,
+      username: session.username,
+      expiresAt: session.expiresAt,
+    }).returning();
+    return result[0];
+  }
+
+  async getSession(id: string): Promise<Session | undefined> {
+    const result = await this.db.select().from(schema.sessions).where(eq(schema.sessions.id, id));
+    return result[0];
+  }
+
+  async deleteSession(id: string): Promise<void> {
+    await this.db.delete(schema.sessions).where(eq(schema.sessions.id, id));
+  }
+
+  async deleteExpiredSessions(): Promise<void> {
+    await this.db.delete(schema.sessions).where(lt(schema.sessions.expiresAt, new Date()));
+  }
+
+  // Radio Settings
+  async getRadioSettings(): Promise<RadioSettings | undefined> {
+    const result = await this.db.select().from(schema.radioSettings);
+    return result[0];
+  }
+
+  async updateRadioSettings(settings: Partial<RadioSettings>): Promise<RadioSettings> {
+    const existing = await this.getRadioSettings();
+    if (!existing) {
+      throw new Error("Radio settings not initialized");
+    }
+    const result = await this.db.update(schema.radioSettings)
+      .set({ ...settings, updatedAt: new Date() })
+      .where(eq(schema.radioSettings.id, existing.id))
+      .returning();
+    return result[0];
+  }
+
+  async initRadioSettings(): Promise<RadioSettings> {
+    const existing = await this.getRadioSettings();
+    if (existing) {
+      return existing;
+    }
+    const result = await this.db.insert(schema.radioSettings).values({
+      stationName: "GroupTherapy Radio",
+      isLive: false,
+      listenerCount: 0,
+    }).returning();
+    return result[0];
+  }
+
+  // Analytics
+  async recordPageView(view: InsertPageView): Promise<PageView> {
+    const result = await this.db.insert(schema.pageViews).values(view).returning();
+    return result[0];
+  }
+
+  async recordPlayCount(playCount: InsertPlayCount): Promise<PlayCount> {
+    const result = await this.db.insert(schema.playCounts).values(playCount).returning();
+    return result[0];
+  }
+
+  async recordRadioListener(listener: InsertRadioListener): Promise<RadioListener> {
+    const result = await this.db.insert(schema.radioListeners).values(listener).returning();
+    return result[0];
+  }
+
+  async updateRadioListenerEnd(id: string): Promise<void> {
+    const listener = await this.db.select().from(schema.radioListeners).where(eq(schema.radioListeners.id, id));
+    if (listener[0]) {
+      const startedAt = listener[0].startedAt;
+      const endedAt = new Date();
+      const duration = Math.floor((endedAt.getTime() - startedAt.getTime()) / 1000);
+      await this.db.update(schema.radioListeners)
+        .set({ endedAt, duration })
+        .where(eq(schema.radioListeners.id, id));
+    }
+  }
+
+  async getAnalyticsOverview(): Promise<{
+    totalPageViews: number;
+    totalPlayCounts: number;
+    totalRadioListeners: number;
+    recentPageViews: PageView[];
+    topReleasesByPlays: { releaseId: string; playCount: number }[];
+  }> {
+    const [pageViewsCount] = await this.db.select({ count: count() }).from(schema.pageViews);
+    const [playCountsCount] = await this.db.select({ count: count() }).from(schema.playCounts);
+    const [radioListenersCount] = await this.db.select({ count: count() }).from(schema.radioListeners);
+
+    const recentPageViews = await this.db.select()
+      .from(schema.pageViews)
+      .orderBy(desc(schema.pageViews.viewedAt))
+      .limit(10);
+
+    const topReleases = await this.db.select({
+      releaseId: schema.playCounts.releaseId,
+      playCount: count(),
+    })
+      .from(schema.playCounts)
+      .groupBy(schema.playCounts.releaseId)
+      .orderBy(desc(count()))
+      .limit(10);
+
+    return {
+      totalPageViews: pageViewsCount.count,
+      totalPlayCounts: playCountsCount.count,
+      totalRadioListeners: radioListenersCount.count,
+      recentPageViews,
+      topReleasesByPlays: topReleases.map(r => ({
+        releaseId: r.releaseId || '',
+        playCount: r.playCount,
+      })),
+    };
   }
 }

@@ -239,9 +239,50 @@ export const radioSettings = pgTable("radio_settings", {
   currentTrack: text("current_track"),
   currentArtist: text("current_artist"),
   currentCoverUrl: text("current_cover_url"),
+  currentShowName: text("current_show_name"),
+  currentHostName: text("current_host_name"),
   isLive: boolean("is_live").default(false),
   listenerCount: integer("listener_count").default(0),
   updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Sessions table for serverless authentication
+export const sessions = pgTable("sessions", {
+  id: varchar("id").primaryKey(),
+  username: text("username").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Analytics - Page views
+export const pageViews = pgTable("page_views", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  path: text("path").notNull(),
+  referrer: text("referrer"),
+  userAgent: text("user_agent"),
+  ipAddress: text("ip_address"),
+  sessionId: text("session_id"),
+  viewedAt: timestamp("viewed_at").notNull().defaultNow(),
+});
+
+// Analytics - Play counts for releases
+export const playCounts = pgTable("play_counts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  releaseId: varchar("release_id").references(() => releases.id),
+  playedAt: timestamp("played_at").notNull().defaultNow(),
+  duration: integer("duration"),
+  completed: boolean("completed").default(false),
+  sessionId: text("session_id"),
+});
+
+// Analytics - Radio listeners
+export const radioListeners = pgTable("radio_listeners", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  showId: varchar("show_id").references(() => radioShows.id),
+  sessionId: text("session_id"),
+  startedAt: timestamp("started_at").notNull().defaultNow(),
+  endedAt: timestamp("ended_at"),
+  duration: integer("duration"),
 });
 
 // Insert schemas
@@ -258,6 +299,10 @@ export const insertTeamMemberSchema = createInsertSchema(teamMembers).omit({ id:
 export const insertContactSchema = createInsertSchema(contacts).omit({ id: true, createdAt: true, status: true });
 export const insertPressAssetSchema = createInsertSchema(pressAssets).omit({ id: true, createdAt: true });
 export const insertRadioSettingsSchema = createInsertSchema(radioSettings).omit({ id: true, updatedAt: true });
+export const insertSessionSchema = createInsertSchema(sessions).omit({ createdAt: true });
+export const insertPageViewSchema = createInsertSchema(pageViews).omit({ id: true, viewedAt: true });
+export const insertPlayCountSchema = createInsertSchema(playCounts).omit({ id: true, playedAt: true });
+export const insertRadioListenerSchema = createInsertSchema(radioListeners).omit({ id: true, startedAt: true });
 
 // Admin user insert and select schemas
 export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({ id: true, createdAt: true, updatedAt: true });
@@ -311,3 +356,15 @@ export type PressAsset = typeof pressAssets.$inferSelect;
 
 export type InsertRadioSettings = z.infer<typeof insertRadioSettingsSchema>;
 export type RadioSettings = typeof radioSettings.$inferSelect;
+
+export type InsertSession = z.infer<typeof insertSessionSchema>;
+export type Session = typeof sessions.$inferSelect;
+
+export type InsertPageView = z.infer<typeof insertPageViewSchema>;
+export type PageView = typeof pageViews.$inferSelect;
+
+export type InsertPlayCount = z.infer<typeof insertPlayCountSchema>;
+export type PlayCount = typeof playCounts.$inferSelect;
+
+export type InsertRadioListener = z.infer<typeof insertRadioListenerSchema>;
+export type RadioListener = typeof radioListeners.$inferSelect;
