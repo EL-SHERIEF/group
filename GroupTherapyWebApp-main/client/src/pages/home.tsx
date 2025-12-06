@@ -56,7 +56,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroSection
         title="GROUPTHERAPY"
-        subtitle="The sound of tomorrow, today. Discover the future of electronic music."
+        subtitle="The sound of tomorrow, today. Discover the future of the music you love."
         showRadio={true}
         ctaText="Explore Releases"
         ctaLink="/releases"
